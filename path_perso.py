@@ -6,8 +6,6 @@ import os
 
 ### We define paths for our datasets
 
-### We define paths for our datasets
-
 # Folder
 folder = "C:\\Users\\jchapon\\Documents\\Blunomy\\Data science LiDAR case study"
 # File names

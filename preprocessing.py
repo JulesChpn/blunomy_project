@@ -1,4 +1,5 @@
 ### Version : Python 3.10.12
+### coding : UTF-8
 
 ### We import packages
 
@@ -20,8 +21,6 @@ lidar_medium = pd.read_parquet(path_perso.lidar_medium_file)
 lidar_hard = pd.read_parquet(path_perso.lidar_hard_file)
 lidar_extrahard = pd.read_parquet(path_perso.lidar_extrahard_file)
 
-# We check what the datasets look like
-lidar_easy.head(n=5)
 
 ### We reorder our datasets
 
@@ -33,20 +32,6 @@ for df in list_df:
     df.reset_index(drop=False, inplace=True)
     df.sort_values(["index"], ascending=True, inplace=True)
     df.reset_index(drop=True, inplace=True)
-
-# We check result
-lidar_easy
-
-### Descriptive stats
-# We check the completeness and the coherency of our datasets
-
-for difficulty in dict_df.keys():
-    print(f"{difficulty} :\n")
-    print(f"values : {dict_df[difficulty].shape}\n")
-    print(f"missing values : {dict_df[difficulty].isnull().sum()}\n")
-    print(f"types : {dict_df[difficulty].dtypes}\n")
-    print(f"stats : {dict_df[difficulty].describe()}\n")
-    print("\n")
 
 
 # We can see that there is no missing value in the four datasets
@@ -66,5 +51,24 @@ for df in list_df:
     )
     df[["x_norm", "y_norm", "z_norm"]] = X1
 
-# We check result
-lidar_easy
+
+### We rotate our coordonates
+# We rotate our x and y axes
+# So our x and y coordonates are in a new axis
+# And they will be easier to cluster
+
+
+# We define the angle of rotation
+angle_degrees = 136.5
+angle = np.radians(angle_degrees)
+# Matrix of rotation
+rotation_matrix = np.array(
+    [[np.cos(angle), -np.sin(angle)], [np.sin(angle), np.cos(angle)]]
+)
+# We create a new dataframe with rotated coordonates and we concatenate the dataframes
+for df in list_df:
+    rotated_points = np.dot(rotation_matrix, np.array([df["x_norm"], df["y_norm"]]))
+    rotated_df = pd.DataFrame(
+        {"x_rotated": rotated_points[0], "y_rotated": rotated_points[1]}
+    )
+    df[["x_rotated", "y_rotated"]] = rotated_df

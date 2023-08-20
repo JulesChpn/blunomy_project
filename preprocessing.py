@@ -59,7 +59,7 @@ for df in list_df:
 
 
 # We define the angle of rotation
-angle_degrees = 136.5
+angle_degrees = -28.65
 angle = np.radians(angle_degrees)
 # Matrix of rotation
 rotation_matrix = np.array(
@@ -67,7 +67,7 @@ rotation_matrix = np.array(
 )
 # We create a new dataframe with rotated coordonates and we concatenate the dataframes
 for df in list_df:
-    rotated_points = np.dot(rotation_matrix, np.array([df["x_norm"], df["y_norm"]]))
+    rotated_points = np.dot(rotation_matrix, np.array([df["x"], df["y"]]))
     rotated_df = pd.DataFrame(
         {"x_rotated": rotated_points[0], "y_rotated": rotated_points[1]}
     )

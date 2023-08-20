@@ -35,7 +35,7 @@ Graphs can be seen in **preprocessing_construction.ipynb**.
 ### Clustering
 
 Thanks to my new coordinates, it is now easy to create clusters for each wire, only by using the new *x_rotated* coordinate and the k-means method.
-The number of clusters for each file could be guessed by looking at the graphs from **preprocessing**.
+The number of clusters for each file could be guessed by looking at the graphs from **preprocessing**. We could have used an elbow method but the different clusters are really distinguishable when looking at the graphs.
 Graphs representing the different clusters can be seen in **clustering_construction.ipynb**.
 
 ### Fitting

@@ -34,24 +34,6 @@ for df in list_df:
     df.reset_index(drop=True, inplace=True)
 
 
-# We can see that there is no missing value in the four datasets
-# They have between 601 and 2803 data points, and all data are float, so there is nothing to change
-# However, some variables have widest ranges than others
-# Hence, there weight will be more important than others
-# We must normalize data
-
-### We normalize our data
-
-scaler = preprocessing.MinMaxScaler()
-for df in list_df:
-    X1 = pd.DataFrame(scaler.fit_transform(df.drop(columns=["index"])))
-    X1 = pd.DataFrame(
-        scaler.fit_transform(df.drop(columns=["index"])),
-        columns=["x_norm", "y_norm", "z_norm"],
-    )
-    df[["x_norm", "y_norm", "z_norm"]] = X1
-
-
 ### We rotate our coordonates
 # We rotate our x and y axes
 # So our x and y coordonates are in a new axis
